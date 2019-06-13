@@ -63,6 +63,11 @@ class TestXMLFolderResolverBehindTheScene(TestCase):
         with self.assertRaises(UnknownCollection):
             text, metadata = Repository.__getText__("urn:cts:farsiLit:hafez.divan.missing_text")
 
+    def test_resolver_loop(self):
+        """ Test to verify an infinite loop is fixed """
+        Repository = NautilusCTSResolver(["./tests/test_data/loop_cts"])
+        Repository.parse()
+
     def test_get_capabilities(self):
         """ Check Get Capabilities """
         Repository = NautilusCTSResolver(
